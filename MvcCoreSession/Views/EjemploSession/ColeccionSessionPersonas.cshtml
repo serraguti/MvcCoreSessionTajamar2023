@@ -1,0 +1,59 @@
+﻿@model IEnumerable<MvcCoreSession.Models.Persona>
+
+@{
+    ViewData["Title"] = "ColeccionSessionPersonas";
+}
+
+<h1>Coleccion Session Personas</h1>
+
+<p>
+    <a asp-controller="EjemploSession" 
+    asp-action="ColeccionSessionPersonas"
+    asp-route-accion="almacenar">
+        Almacenar colección
+    </a>
+</p>
+<p>
+    <a asp-controller="EjemploSession"
+        asp-action="ColeccionSessionPersonas"
+        asp-route-accion="mostrar">
+        Mostrar colección
+    </a>
+</p>
+
+<h2>@ViewData["MENSAJE"]</h2>
+
+@if (Model != null)
+{
+    <table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Nombre)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Edad)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nombre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Edad)
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+}
+

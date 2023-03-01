@@ -3,12 +3,31 @@
 <h1 style="color:blue">
     @ViewData["NUMERO"]
 </h1>
+<ul>
+    <li>
+        <a asp-controller="EjemploSession"
+         asp-action="SessionSimple">
+            Session simple
+        </a> 
+    </li>
+    <li>
+        <a asp-controller="EjemploSession"
+            asp-action="SessionPersona">
+            Session Persona
+        </a>
+    </li>
+    <li>
+        <a asp-controller="EjemploSession"
+            asp-action="ColeccionSessionPersonas">
+          Colección Session Personas
+        </a>
+    </li>
+    <li>
+        <a asp-controller="EjemploSession"
+            asp-action="SessionPersonaJson">
+          Session Persona JSON
+        </a>
+    </li>
+</ul>
 
-<a asp-controller="EjemploSession"
- asp-action="SessionSimple">
-    Session simple
-</a> | 
-<a asp-controller="EjemploSession"
-    asp-action="SessionPersona">
-    Session Persona
-</a>
+

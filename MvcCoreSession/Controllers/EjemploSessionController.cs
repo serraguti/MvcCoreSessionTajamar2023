@@ -67,5 +67,65 @@ namespace MvcCoreSession.Controllers
             }
             return View();
         }
+
+        public IActionResult ColeccionSessionPersonas(string accion)
+        {
+            if (accion != null)
+            {
+                if (accion.ToLower() == "almacenar")
+                {
+                    List<Persona> personas = new List<Persona>
+                    {
+                        new Persona{ Nombre = "Lucia"
+                        , Email="lucia@gmail.com", Edad = 20},
+                        new Persona{ Nombre = "Andres"
+                        , Email="andres@gmail.com", Edad = 40},
+                        new Persona{ Nombre = "Adrian"
+                        , Email="adrian@gmail.com", Edad = 23}
+                    };
+                    byte[] data = HelperBinarySession.ObjectToByte(personas);
+                    HttpContext.Session.Set("LISTAPERSONAS", data);
+                    ViewData["MENSAJE"] = "Colección almacenada";
+                }
+                else if (accion.ToLower() == "mostrar")
+                {
+                    byte[] data = HttpContext.Session.Get("LISTAPERSONAS");
+                    List<Persona> personas = (List<Persona>)
+                        HelperBinarySession.ByteToObject(data);
+                    return View(personas);
+                }
+            }
+            return View();
+        }
+
+        public IActionResult SessionPersonaJson(string accion)
+        {
+            if (accion != null)
+            {
+                if (accion.ToLower() == "almacenar")
+                {
+                    Persona persona = new Persona();
+                    persona.Nombre = "Alumno JSOn";
+                    persona.Email = "alumnojson@gmail.com";
+                    persona.Edad = 25;
+                    string jsonPersona =
+                        HelperJsonSession.SerializeObject<Persona>
+                        (persona);
+                    HttpContext.Session.SetString("PERSONA",jsonPersona);
+                    ViewData["MENSAJE"] = "Datos almacenados";
+                }
+                else if (accion.ToLower() == "mostrar")
+                {
+                    //EXTRAEMOS EL OBJETO PERSONA DESDE EL STRING
+                    string jsonPersona =
+                        HttpContext.Session.GetString("PERSONA");
+                    Persona persona =
+                        HelperJsonSession.DeserializeObject<Persona>
+                        (jsonPersona);
+                    ViewData["PERSONA"] = persona;
+                }
+            }
+            return View();
+        }
     }
 }
