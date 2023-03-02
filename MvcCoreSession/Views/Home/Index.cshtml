@@ -1,15 +1,9 @@
-﻿@using MvcCoreSession.Helpers
-@{
+﻿@{
     ViewData["Title"] = "Home Page";
 }
 @{
-    Persona persona = null;
-    if (Context.Session.GetString("PERSONA") != null)
-    {
-        string jsonPersona = Context.Session.GetString("PERSONA");
-        persona =
-        HelperJsonSession.DeserializeObject<Persona>(jsonPersona);        
-    }
+    Persona persona = 
+        Context.Session.GetObject<Persona>("PERSONAOBJECT");
 }
 
 <div class="text-center">

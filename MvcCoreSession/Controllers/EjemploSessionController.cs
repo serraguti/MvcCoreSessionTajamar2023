@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using MvcCoreSession.Extensions;
 using MvcCoreSession.Helpers;
 using MvcCoreSession.Models;
 
@@ -123,6 +124,57 @@ namespace MvcCoreSession.Controllers
                         HelperJsonSession.DeserializeObject<Persona>
                         (jsonPersona);
                     ViewData["PERSONA"] = persona;
+                }
+            }
+            return View();
+        }
+
+        public IActionResult SessionPersonaObject(string accion)
+        {
+            if (accion != null)
+            {
+                if (accion.ToLower() == "almacenar")
+                {
+                    Persona persona = new Persona();
+                    persona.Nombre = "Alumno Object";
+                    persona.Email = "object@gmail.com";
+                    persona.Edad = 35;
+                    HttpContext.Session.SetObject("PERSONAOBJECT", persona);
+                    ViewData["MENSAJE"] = "Datos almacenados en objeto";
+                }
+                else if (accion.ToLower() == "mostrar")
+                {
+                    Persona persona =
+                        HttpContext.Session.GetObject<Persona>("PERSONAOBJECT");
+                    ViewData["PERSONA"] = persona;
+                }
+            }
+            return View();
+        }
+
+        public IActionResult ColeccionSessionObjects(string accion)
+        {
+            if (accion != null)
+            {
+                if (accion.ToLower() == "almacenar")
+                {
+                    List<Persona> personas = new List<Persona>
+                    {
+                        new Persona{ Nombre = "Lucia"
+                        , Email="lucia@gmail.com", Edad = 20},
+                        new Persona{ Nombre = "Andres"
+                        , Email="andres@gmail.com", Edad = 40},
+                        new Persona{ Nombre = "Adrian"
+                        , Email="adrian@gmail.com", Edad = 23}
+                    };
+                    HttpContext.Session.SetObject("LISTAPERSONASOBJECT", personas);
+                    ViewData["MENSAJE"] = "Colección almacenada";
+                }
+                else if (accion.ToLower() == "mostrar")
+                {
+                    List<Persona> personas =
+                        HttpContext.Session.GetObject<List<Persona>>("LISTAPERSONASOBJECT");
+                    return View(personas);
                 }
             }
             return View();

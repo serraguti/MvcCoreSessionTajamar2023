@@ -39,10 +39,10 @@ namespace MvcCoreSession.Extensions
             session.SetString(key, data);
         }
 
-        public static int GetNumeroPalabras
-            (this string texto)
-        {
-            return texto.Split(' ').Length;
-        }
+        //public static int GetNumeroPalabras
+        //    (this string texto)
+        //{
+        //    return texto.Split(' ').Length;
+        //}
     }
 }

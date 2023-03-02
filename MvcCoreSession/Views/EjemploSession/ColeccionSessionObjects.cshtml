@@ -1,0 +1,56 @@
+﻿@{
+    ViewData["Title"] = "ColeccionSessionObjects";
+}
+
+@{
+    List<Persona> personas =
+                Context.Session.GetObject<List<Persona>>("LISTAPERSONASOBJECT");
+}
+
+<h1>Coleccion Session OBJECTS</h1>
+
+<p>
+    <a asp-controller="EjemploSession" 
+    asp-action="ColeccionSessionObjects"
+    asp-route-accion="almacenar">
+        Almacenar colección OBJECTS
+    </a>
+</p>
+<p>
+    <a asp-controller="EjemploSession"
+        asp-action="ColeccionSessionObjects"
+        asp-route-accion="mostrar">
+        Mostrar colección Objects
+    </a>
+</p>
+
+<h2>@ViewData["MENSAJE"]</h2>
+
+@if (personas != null)
+{
+    <table class="table table-bordered table-dark">
+    <thead>
+        <tr>
+            <th>Nombre</th>
+            <th>Email</th>
+            <th>Edad</th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in personas) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nombre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Edad)
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+}
+
